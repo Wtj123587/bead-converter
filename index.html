@@ -3,163 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>拼豆转换器 - 免费在线图片转拼豆图纸</title>
-<meta name="description" content="完全免费的在线拼豆转换工具，上传图片自动生成拼豆图纸、颜色对照表和符号网格。支持多种尺寸，下载导出。无需注册，永久免费。">
+<title>拼豆转换器 Pro - 免费在线图片转拼豆图纸</title>
+<meta name="description" content="完全免费的在线拼豆转换工具，上传图片自动生成高清拼豆图纸。支持多种尺寸、Floyd-Steinberg抖动算法、锐化增强。下载导出，永久免费。">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  background: #f5f0eb; color: #333; min-height:100vh;
-}
-header {
-  background: linear-gradient(135deg, #ff6b6b, #ffa502, #ff6348);
-  color: #fff; text-align: center; padding: 30px 20px;
-}
-header h1 { font-size: 32px; margin-bottom: 6px; }
-header p { font-size: 15px; opacity: .9; }
-
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f0eb;color:#333;min-height:100vh}
+header{background:linear-gradient(135deg,#ff6b6b,#ffa502,#ff6348);color:#fff;text-align:center;padding:30px 20px}
+header h1{font-size:32px;margin-bottom:4px}
+header p{font-size:15px;opacity:.9}
+.container{max-width:1200px;margin:0 auto;padding:20px}
 
 /* Upload */
-.upload-zone {
-  border: 3px dashed #ffa502; border-radius: 16px;
-  padding: 50px 30px; text-align: center; cursor: pointer;
-  background: #fff; transition: all .3s; margin-bottom: 20px;
-}
-.upload-zone:hover { border-color: #ff6348; background: #fff5f0; }
-.upload-zone h3 { font-size: 20px; color: #ff6348; margin-bottom: 8px; }
-.upload-zone p { color: #999; font-size: 14px; }
-.upload-zone .icon { font-size: 48px; margin-bottom: 10px; }
+.upload-zone{border:3px dashed #ffa502;border-radius:16px;padding:40px 30px;text-align:center;cursor:pointer;background:#fff;transition:.3s;margin-bottom:20px}
+.upload-zone:hover{border-color:#ff6348;background:#fff5f0}
+.upload-zone h3{font-size:20px;color:#ff6348;margin-bottom:6px}
+.upload-zone p{color:#999;font-size:14px}
+.upload-zone .icon{font-size:48px;margin-bottom:8px}
 
-/* Controls */
-.controls {
-  background: #fff; border-radius: 12px; padding: 24px;
-  display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
-  margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
-}
-.controls label { font-weight: 600; font-size: 14px; color: #555; }
-.controls select, .controls input {
-  padding: 8px 12px; border: 2px solid #e0d5cc; border-radius: 8px;
-  font-size: 14px; background: #fff; outline: none;
-}
-.controls select:focus { border-color: #ffa502; }
-.controls button, .btn {
-  padding: 10px 22px; border: none; border-radius: 10px;
-  font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all .2s; color: #fff;
-}
-.btn-primary { background: linear-gradient(135deg, #ff6b6b, #ffa502); }
-.btn-secondary { background: #555; }
-.btn-success { background: #27ae60; }
-.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+/* Controls grid */
+.ctrl-row{background:#fff;border-radius:12px;padding:20px 24px;display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-weight:600;font-size:13px;color:#555}
+.ctrl-group select,.ctrl-group input[type=range]{padding:6px 10px;border:2px solid #e0d5cc;border-radius:8px;font-size:13px;background:#fff;outline:none;min-width:100px}
+.ctrl-group select:focus{border-color:#ffa502}
+.ctrl-group input[type=range]{padding:0;-webkit-appearance:none;height:6px;border-radius:3px;background:#e0d5cc;margin-top:6px}
+.ctrl-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#ffa502;cursor:pointer}
+.ctrl-group .val{font-size:11px;color:#999;text-align:center}
+.btn{padding:10px 22px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;color:#fff;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,#ff6b6b,#ffa502)}
+.btn-secondary{background:#555}
+.btn-success{background:#27ae60}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* Preview */
-.preview-section {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  margin-bottom: 20px;
-}
-.preview-card {
-  background: #fff; border-radius: 12px; padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-}
-.preview-card h3 { font-size: 16px; margin-bottom: 12px; color: #555; text-align: center; }
-.preview-card canvas { display: block; margin: 0 auto; image-rendering: pixelated; max-width: 100%; }
-
-/* Grid */
-.grid-section {
-  background: #fff; border-radius: 12px; padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 20px;
-}
-.grid-section h3 { font-size: 16px; margin-bottom: 12px; color: #555; text-align: center; }
-.grid-container { overflow-x: auto; text-align: center; }
-.grid-table { display: inline-block; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1; }
-.grid-table .row { display: flex; }
-.grid-table .cell {
-  width: 24px; height: 24px; text-align: center; line-height: 24px;
-  font-size: 11px; font-weight: 700; border: 0.5px solid rgba(0,0,0,.05);
-}
-
-/* Legend */
-.legend-section {
-  background: #fff; border-radius: 12px; padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 20px;
-}
-.legend-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.legend-item {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 8px; background: #f9f9f9;
-  font-size: 13px; font-weight: 600;
-}
-.legend-swatch {
-  width: 22px; height: 22px; border-radius: 4px; border: 1px solid #ddd;
-}
-.legend-symbol { font-family: 'Courier New', monospace; font-weight: 700; min-width: 20px; text-align: center; }
+/* Preview pairs */
+.preview-section{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.preview-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
+.preview-card h3{font-size:15px;margin-bottom:12px;color:#555}
+.preview-card canvas{image-rendering:pixelated;max-width:100%;border-radius:4px;box-shadow:0 0 0 1px #eee}
 
 /* Bead count */
-.bead-summary {
-  background: #fff; border-radius: 12px; padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 20px;
-  text-align: center;
-}
-.bead-summary h3 { margin-bottom: 8px; }
-.bead-total { font-size: 28px; font-weight: 900; color: #ff6348; }
+.bead-summary{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:16px;text-align:center}
+.bead-total{font-size:28px;font-weight:900;color:#ff6348}
+.bead-summary p{margin-top:4px;color:#999;font-size:13px}
 
-/* Hidden */
-.hidden { display: none !important; }
+/* Legend */
+.legend-section{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:16px}
+.legend-section h3{text-align:center;font-size:15px;margin-bottom:14px;color:#555}
+.legend-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:8px;background:#f9f9f9;font-size:12px;font-weight:600}
+.legend-swatch{width:20px;height:20px;border-radius:4px;border:1px solid #ddd;flex-shrink:0}
+.legend-symbol{font-family:'Courier New',monospace;font-weight:700;min-width:18px;text-align:center}
 
-footer {
-  text-align: center; padding: 20px; color: #999; font-size: 13px;
-}
-footer a { color: #ff6348; }
+/* Grid */
+.grid-section{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:20px}
+.grid-section h3{text-align:center;font-size:15px;margin-bottom:12px;color:#555}
+.tabs{display:flex;gap:6px;margin-bottom:14px;justify-content:center;flex-wrap:wrap}
+.tab-btn{padding:7px 14px;border-radius:20px;border:2px solid #e0d5cc;background:#fff;cursor:pointer;font-size:12px;font-weight:600;transition:.2s;color:#555}
+.tab-btn.active{background:#ffa502;color:#fff;border-color:#ffa502}
+.tab-content.hidden{display:none}
+.grid-container{overflow-x:auto;text-align:center;max-height:600px;overflow-y:auto}
+.grid-table{display:inline-block;font-family:'Courier New',monospace;line-height:1}
+.grid-table .row{display:flex}
+.grid-table .cell{width:22px;height:22px;text-align:center;line-height:22px;font-size:10px;font-weight:700;border:.5px solid rgba(0,0,0,.06);flex-shrink:0}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .preview-section { grid-template-columns: 1fr; }
-  header h1 { font-size: 24px; }
-  .grid-table .cell { width: 16px; height: 16px; font-size: 8px; line-height: 16px; }
-}
+.hidden{display:none !important}
+footer{text-align:center;padding:20px;color:#999;font-size:13px}
+footer a{color:#ff6348}
 
-/* tabs */
-.tabs { display: flex; gap: 8px; margin-bottom: 16px; justify-content: center; flex-wrap: wrap; }
-.tab-btn {
-  padding: 8px 16px; border-radius: 20px; border: 2px solid #e0d5cc;
-  background: #fff; cursor: pointer; font-size: 13px; font-weight: 600;
-  transition: all .2s; color: #555;
+/* Tip box */
+.tip-box{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#856404}
+.tip-box strong{color:#664d03}
+
+@media(max-width:768px){
+  .preview-section{grid-template-columns:1fr}
+  header h1{font-size:22px}
+  .grid-table .cell{width:14px;height:14px;font-size:7px;line-height:14px}
+  .ctrl-row{gap:8px}
 }
-.tab-btn.active { background: #ffa502; color: #fff; border-color: #ffa502; }
-.tab-content.hidden { display: none; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🧩 拼豆转换器</h1>
-  <p>上传图片 → 自动生成拼豆图纸 · 完全免费 · 离线可用</p>
+  <h1>🧩 拼豆转换器 Pro</h1>
+  <p>上传图片 → 自动生成高清拼豆图纸 · 完全免费 · 数据不上传 · 本地处理</p>
 </header>
 
 <div class="container">
 
-  <!-- Upload -->
   <div class="upload-zone" id="uploadZone">
     <div class="icon">🖼️</div>
     <h3>点击上传图片 或 拖拽到这里</h3>
-    <p>支持 JPG / PNG / WebP</p>
+    <p>支持 JPG / PNG / WebP · 建议用卡通/像素风图片效果最好</p>
     <input type="file" id="fileInput" accept="image/*" hidden>
   </div>
 
-  <!-- Controls -->
-  <div class="controls">
-    <div>
+  <div class="tip-box" id="sampleTip" style="display:block">
+    <strong>💡 小提示：</strong>如果转换后看不清，试试调大「锐化」和「对比度」滑块，或者选更大的底板尺寸。卡通图案、简单图案转换效果最好。
+  </div>
+
+  <!-- Controls Row 1: basic -->
+  <div class="ctrl-row">
+    <div class="ctrl-group">
       <label>底板尺寸</label>
       <select id="gridSize">
-        <option value="29">29×29（小方板）</option>
-        <option value="39" selected>39×39（大方板）</option>
+        <option value="29">29×29</option>
+        <option value="39">39×39</option>
         <option value="48">48×48</option>
         <option value="55">55×55</option>
-        <option value="29x58">29×58（两块小方板）</option>
+        <option value="58">58×58 ⭐推荐</option>
+        <option value="68">68×68</option>
+        <option value="78">78×78</option>
+        <option value="98">98×98</option>
+        <option value="29x58">29×58（双板）</option>
+        <option value="58x58">58×58（四板）</option>
       </select>
     </div>
-    <div>
+    <div class="ctrl-group">
       <label>色板</label>
       <select id="palette">
         <option value="standard">标准拼豆 48色</option>
@@ -168,14 +129,66 @@ footer a { color: #ff6348; }
       </select>
     </div>
     <button class="btn btn-primary" id="convertBtn">🎨 开始转换</button>
-    <button class="btn btn-secondary" id="downloadGrid">📥 下载图纸</button>
-    <button class="btn btn-success" id="downloadPreview">🖼️ 下载预览图</button>
+    <button class="btn btn-secondary" id="downloadGrid" disabled>📥 下载图纸</button>
+    <button class="btn btn-success" id="downloadPreview" disabled>🖼️ 下载预览图</button>
+  </div>
+
+  <!-- Controls Row 2: image enhancement -->
+  <div class="ctrl-row">
+    <div class="ctrl-group" style="flex:1;min-width:120px">
+      <label>锐化 <span class="val" id="sharpenVal">1.5</span></label>
+      <input type="range" id="sharpen" min="0" max="5" step="0.1" value="1.5">
+    </div>
+    <div class="ctrl-group" style="flex:1;min-width:120px">
+      <label>对比度 <span class="val" id="contrastVal">1.3</span></label>
+      <input type="range" id="contrast" min="0.5" max="3" step="0.1" value="1.3">
+    </div>
+    <div class="ctrl-group" style="flex:1;min-width:120px">
+      <label>亮度 <span class="val" id="brightnessVal">1.0</span></label>
+      <input type="range" id="brightness" min="0.5" max="2" step="0.1" value="1.0">
+    </div>
+    <div class="ctrl-group" style="flex:1;min-width:120px">
+      <label>饱和度 <span class="val" id="saturationVal">1.2</span></label>
+      <input type="range" id="saturation" min="0" max="3" step="0.1" value="1.2">
+    </div>
+  </div>
+
+  <!-- Controls Row 3: dither + color limit -->
+  <div class="ctrl-row">
+    <div class="ctrl-group">
+      <label>抖动算法</label>
+      <select id="ditherMode">
+        <option value="none">无抖动</option>
+        <option value="floyd" selected>Floyd-Steinberg ⭐</option>
+        <option value="ordered">有序抖动</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>最大颜色数（限制用色）</label>
+      <select id="maxColors">
+        <option value="0">不限制</option>
+        <option value="8">8 色</option>
+        <option value="12">12 色</option>
+        <option value="16">16 色</option>
+        <option value="24">24 色</option>
+        <option value="32">32 色</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>预览放大倍数</label>
+      <select id="previewScale">
+        <option value="8">8×</option>
+        <option value="10" selected>10×</option>
+        <option value="14">14×</option>
+        <option value="20">20×</option>
+      </select>
+    </div>
   </div>
 
   <!-- Preview -->
   <div class="preview-section hidden" id="previewSection">
     <div class="preview-card">
-      <h3>🔍 原始图片（缩小后）</h3>
+      <h3>🔍 原图（预处理后）</h3>
       <canvas id="originalCanvas"></canvas>
     </div>
     <div class="preview-card">
@@ -188,474 +201,405 @@ footer a { color: #ff6348; }
   <div class="bead-summary hidden" id="beadSummary">
     <h3>📦 所需拼豆总数</h3>
     <div class="bead-total" id="beadTotal">0 颗</div>
-    <p style="color:#999;font-size:13px;">具体颜色数量见下方图例</p>
+    <p id="beadColorCount">使用了 0 种颜色</p>
   </div>
 
   <!-- Legend -->
   <div class="legend-section hidden" id="legendSection">
-    <h3>🎨 颜色对照表</h3>
+    <h3>🎨 颜色对照表（按图例买相应颜色和数量的拼豆）</h3>
     <div class="legend-grid" id="legendGrid"></div>
   </div>
 
   <!-- Grid -->
   <div class="grid-section hidden" id="gridSection">
-    <h3 id="gridTitle">📋 拼豆符号网格</h3>
+    <h3 id="gridTitle">📋 拼豆图纸</h3>
     <div class="tabs" id="gridTabs">
-      <button class="tab-btn active" data-tab="symbol">🔤 符号模式</button>
-      <button class="tab-btn" data-tab="color">🎨 颜色方块</button>
-      <button class="tab-btn" data-tab="number">🔢 数字模式</button>
+      <button class="tab-btn active" data-tab="symbol">🔤 符号网格</button>
+      <button class="tab-btn" data-tab="color">🎨 颜色网格</button>
+      <button class="tab-btn" data-tab="number">🔢 编号网格</button>
     </div>
-    <div id="tabSymbol" class="tab-content">
-      <div class="grid-container" id="gridSymbol"></div>
-    </div>
-    <div id="tabColor" class="tab-content hidden">
-      <div class="grid-container" id="gridColor"></div>
-    </div>
-    <div id="tabNumber" class="tab-content hidden">
-      <div class="grid-container" id="gridNumber"></div>
-    </div>
+    <div id="tabSymbol" class="tab-content"><div class="grid-container" id="gridSymbol"></div></div>
+    <div id="tabColor" class="tab-content hidden"><div class="grid-container" id="gridColor"></div></div>
+    <div id="tabNumber" class="tab-content hidden"><div class="grid-container" id="gridNumber"></div></div>
   </div>
 
 </div>
 
 <footer>
-  <p>完全免费 · 无需注册 · 数据处理在本地浏览器完成，不上传服务器</p>
+  <p>完全免费 · 无需注册 · 所有图片数据仅在本地浏览器处理，绝不上传服务器</p>
   <p>By 厦门华厦学院 学长工具站 | <a href="https://wtj123587.github.io/campus-guide/">回到新生攻略站</a></p>
 </footer>
 
 <script>
 // ═══════════════════════════════════════════════
-// 拼豆色板定义
+// 拼豆色板
 // ═══════════════════════════════════════════════
 const PALETTES = {
   standard: [
-    { name: '白色', hex: '#FFFFFF', sym: 'A', code: '01' },
-    { name: '黑色', hex: '#1A1A1A', sym: 'B', code: '02' },
-    { name: '深灰', hex: '#4A4A4A', sym: 'C', code: '03' },
-    { name: '浅灰', hex: '#9E9E9E', sym: 'D', code: '04' },
-    { name: '奶油色', hex: '#FFFDD0', sym: 'E', code: '05' },
-    { name: '米白', hex: '#F5F0E1', sym: 'F', code: '06' },
-    { name: '红色', hex: '#E53935', sym: 'G', code: '07' },
-    { name: '深红', hex: '#B71C1C', sym: 'H', code: '08' },
-    { name: '粉色', hex: '#F48FB1', sym: 'I', code: '09' },
-    { name: '桃红', hex: '#FF6B9D', sym: 'J', code: '10' },
-    { name: '玫红', hex: '#EC407A', sym: 'K', code: '11' },
-    { name: '橙色', hex: '#FF9800', sym: 'L', code: '12' },
-    { name: '亮橙', hex: '#FFB74D', sym: 'M', code: '13' },
-    { name: '黄色', hex: '#FFEB3B', sym: 'N', code: '14' },
-    { name: '金黄', hex: '#FFC107', sym: 'O', code: '15' },
-    { name: '淡黄', hex: '#FFF9C4', sym: 'P', code: '16' },
-    { name: '绿色', hex: '#4CAF50', sym: 'Q', code: '17' },
-    { name: '深绿', hex: '#2E7D32', sym: 'R', code: '18' },
-    { name: '浅绿', hex: '#81C784', sym: 'S', code: '19' },
-    { name: '草绿', hex: '#8BC34A', sym: 'T', code: '20' },
-    { name: '青绿', hex: '#26A69A', sym: 'U', code: '21' },
-    { name: '蓝色', hex: '#1E88E5', sym: 'V', code: '22' },
-    { name: '深蓝', hex: '#1565C0', sym: 'W', code: '23' },
-    { name: '浅蓝', hex: '#64B5F6', sym: 'X', code: '24' },
-    { name: '天蓝', hex: '#4FC3F7', sym: 'Y', code: '25' },
-    { name: '蓝绿', hex: '#00BCD4', sym: 'Z', code: '26' },
-    { name: '紫色', hex: '#8E24AA', sym: 'a', code: '27' },
-    { name: '深紫', hex: '#6A1B9A', sym: 'b', code: '28' },
-    { name: '淡紫', hex: '#CE93D8', sym: 'c', code: '29' },
-    { name: '薰衣草', hex: '#B39DDB', sym: 'd', code: '30' },
-    { name: '棕色', hex: '#795548', sym: 'e', code: '31' },
-    { name: '深棕', hex: '#4E342E', sym: 'f', code: '32' },
-    { name: '浅棕', hex: '#A1887F', sym: 'g', code: '33' },
-    { name: '肤色', hex: '#FFCCBC', sym: 'h', code: '34' },
-    { name: '肉色', hex: '#FFAB91', sym: 'i', code: '35' },
-    { name: '杏色', hex: '#FFE0B2', sym: 'j', code: '36' },
-    { name: '薄荷绿', hex: '#B2DFDB', sym: 'k', code: '37' },
-    { name: '珊瑚色', hex: '#FF8A80', sym: 'l', code: '38' },
-    { name: '西瓜红', hex: '#FF5252', sym: 'm', code: '39' },
-    { name: '柠檬黄', hex: '#FFF176', sym: 'n', code: '40' },
-    { name: '荧光粉', hex: '#FF80AB', sym: 'o', code: '41' },
-    { name: '荧光绿', hex: '#B9F6CA', sym: 'p', code: '42' },
-    { name: '荧光蓝', hex: '#80D8FF', sym: 'q', code: '43' },
-    { name: '荧光黄', hex: '#FFFF8D', sym: 'r', code: '44' },
-    { name: '夜光白', hex: '#E8F5E9', sym: 's', code: '45' },
-    { name: '透明', hex: '#F5F5F5', sym: 't', code: '46' },
-    { name: '银色', hex: '#BDBDBD', sym: 'u', code: '47' },
-    { name: '金色', hex: '#FFD54F', sym: 'v', code: '48' },
+    {name:'白色',hex:'#FFFFFF',sym:'A',code:'01'},{name:'黑色',hex:'#1A1A1A',sym:'B',code:'02'},
+    {name:'深灰',hex:'#4A4A4A',sym:'C',code:'03'},{name:'浅灰',hex:'#9E9E9E',sym:'D',code:'04'},
+    {name:'奶油',hex:'#FFFDD0',sym:'E',code:'05'},{name:'米白',hex:'#F5F0E1',sym:'F',code:'06'},
+    {name:'红色',hex:'#E53935',sym:'G',code:'07'},{name:'深红',hex:'#B71C1C',sym:'H',code:'08'},
+    {name:'粉色',hex:'#F48FB1',sym:'I',code:'09'},{name:'桃红',hex:'#FF6B9D',sym:'J',code:'10'},
+    {name:'玫红',hex:'#EC407A',sym:'K',code:'11'},{name:'橙色',hex:'#FF9800',sym:'L',code:'12'},
+    {name:'亮橙',hex:'#FFB74D',sym:'M',code:'13'},{name:'黄色',hex:'#FFEB3B',sym:'N',code:'14'},
+    {name:'金黄',hex:'#FFC107',sym:'O',code:'15'},{name:'淡黄',hex:'#FFF9C4',sym:'P',code:'16'},
+    {name:'绿色',hex:'#4CAF50',sym:'Q',code:'17'},{name:'深绿',hex:'#2E7D32',sym:'R',code:'18'},
+    {name:'浅绿',hex:'#81C784',sym:'S',code:'19'},{name:'草绿',hex:'#8BC34A',sym:'T',code:'20'},
+    {name:'青绿',hex:'#26A69A',sym:'U',code:'21'},{name:'蓝色',hex:'#1E88E5',sym:'V',code:'22'},
+    {name:'深蓝',hex:'#1565C0',sym:'W',code:'23'},{name:'浅蓝',hex:'#64B5F6',sym:'X',code:'24'},
+    {name:'天蓝',hex:'#4FC3F7',sym:'Y',code:'25'},{name:'蓝绿',hex:'#00BCD4',sym:'Z',code:'26'},
+    {name:'紫色',hex:'#8E24AA',sym:'a',code:'27'},{name:'深紫',hex:'#6A1B9A',sym:'b',code:'28'},
+    {name:'淡紫',hex:'#CE93D8',sym:'c',code:'29'},{name:'薰衣草',hex:'#B39DDB',sym:'d',code:'30'},
+    {name:'棕色',hex:'#795548',sym:'e',code:'31'},{name:'深棕',hex:'#4E342E',sym:'f',code:'32'},
+    {name:'浅棕',hex:'#A1887F',sym:'g',code:'33'},{name:'肤色',hex:'#FFCCBC',sym:'h',code:'34'},
+    {name:'肉色',hex:'#FFAB91',sym:'i',code:'35'},{name:'杏色',hex:'#FFE0B2',sym:'j',code:'36'},
+    {name:'薄荷',hex:'#B2DFDB',sym:'k',code:'37'},{name:'珊瑚',hex:'#FF8A80',sym:'l',code:'38'},
+    {name:'西瓜',hex:'#FF5252',sym:'m',code:'39'},{name:'柠檬',hex:'#FFF176',sym:'n',code:'40'},
+    {name:'荧光粉',hex:'#FF80AB',sym:'o',code:'41'},{name:'荧光绿',hex:'#B9F6CA',sym:'p',code:'42'},
+    {name:'荧光蓝',hex:'#80D8FF',sym:'q',code:'43'},{name:'荧光黄',hex:'#FFFF8D',sym:'r',code:'44'},
+    {name:'夜光',hex:'#E8F5E9',sym:'s',code:'45'},{name:'透明',hex:'#F5F5F5',sym:'t',code:'46'},
+    {name:'银色',hex:'#BDBDBD',sym:'u',code:'47'},{name:'金色',hex:'#FFD54F',sym:'v',code:'48'},
   ],
   hama: [
-    { name: '白', hex: '#FFFFFF', sym: 'A' },
-    { name: '黑', hex: '#1A1A1A', sym: 'B' },
-    { name: '灰', hex: '#757575', sym: 'C' },
-    { name: '红', hex: '#E53935', sym: 'D' },
-    { name: '粉', hex: '#F48FB1', sym: 'E' },
-    { name: '橙', hex: '#FF9800', sym: 'F' },
-    { name: '黄', hex: '#FFEB3B', sym: 'G' },
-    { name: '绿', hex: '#4CAF50', sym: 'H' },
-    { name: '深绿', hex: '#2E7D32', sym: 'I' },
-    { name: '蓝', hex: '#2196F3', sym: 'J' },
-    { name: '深蓝', hex: '#1565C0', sym: 'K' },
-    { name: '紫', hex: '#9C27B0', sym: 'L' },
-    { name: '棕', hex: '#795548', sym: 'M' },
-    { name: '肤色', hex: '#FFCC80', sym: 'N' },
-    { name: '奶油', hex: '#FFF9C4', sym: 'O' },
-    { name: '浅粉', hex: '#F8BBD0', sym: 'P' },
-    { name: '浅蓝', hex: '#90CAF9', sym: 'Q' },
-    { name: '浅绿', hex: '#A5D6A7', sym: 'R' },
-    { name: '浅黄', hex: '#FFF176', sym: 'S' },
-    { name: '浅紫', hex: '#CE93D8', sym: 'T' },
-    { name: '深粉', hex: '#EC407A', sym: 'U' },
-    { name: '深橙', hex: '#E65100', sym: 'V' },
-    { name: '青', hex: '#00BCD4', sym: 'W' },
-    { name: '浅棕', hex: '#BCAAA4', sym: 'X' },
-    { name: '深紫', hex: '#6A1B9A', sym: 'Y' },
-    { name: '薄荷', hex: '#80CBC4', sym: 'Z' },
-    { name: '西瓜红', hex: '#FF5252', sym: '0' },
-    { name: '荧光粉', hex: '#FF80AB', sym: '1' },
-    { name: '荧光绿', hex: '#69F0AE', sym: '2' },
-    { name: '天蓝', hex: '#40C4FF', sym: '3' },
+    {name:'白',hex:'#FFFFFF',sym:'A'},{name:'黑',hex:'#1A1A1A',sym:'B'},{name:'灰',hex:'#757575',sym:'C'},
+    {name:'红',hex:'#E53935',sym:'D'},{name:'粉',hex:'#F48FB1',sym:'E'},{name:'橙',hex:'#FF9800',sym:'F'},
+    {name:'黄',hex:'#FFEB3B',sym:'G'},{name:'绿',hex:'#4CAF50',sym:'H'},{name:'深绿',hex:'#2E7D32',sym:'I'},
+    {name:'蓝',hex:'#2196F3',sym:'J'},{name:'深蓝',hex:'#1565C0',sym:'K'},{name:'紫',hex:'#9C27B0',sym:'L'},
+    {name:'棕',hex:'#795548',sym:'M'},{name:'肤',hex:'#FFCC80',sym:'N'},{name:'奶油',hex:'#FFF9C4',sym:'O'},
+    {name:'浅粉',hex:'#F8BBD0',sym:'P'},{name:'浅蓝',hex:'#90CAF9',sym:'Q'},{name:'浅绿',hex:'#A5D6A7',sym:'R'},
+    {name:'浅黄',hex:'#FFF176',sym:'S'},{name:'浅紫',hex:'#CE93D8',sym:'T'},{name:'深粉',hex:'#EC407A',sym:'U'},
+    {name:'深橙',hex:'#E65100',sym:'V'},{name:'青',hex:'#00BCD4',sym:'W'},{name:'浅棕',hex:'#BCAAA4',sym:'X'},
+    {name:'深紫',hex:'#6A1B9A',sym:'Y'},{name:'薄荷',hex:'#80CBC4',sym:'Z'},{name:'西瓜',hex:'#FF5252',sym:'0'},
+    {name:'荧光粉',hex:'#FF80AB',sym:'1'},{name:'荧光绿',hex:'#69F0AE',sym:'2'},{name:'天蓝',hex:'#40C4FF',sym:'3'},
   ],
   limited: [
-    { name: '白', hex: '#FFFFFF', sym: 'A' },
-    { name: '黑', hex: '#1A1A1A', sym: 'B' },
-    { name: '灰', hex: '#9E9E9E', sym: 'C' },
-    { name: '红', hex: '#E53935', sym: 'D' },
-    { name: '粉', hex: '#F48FB1', sym: 'E' },
-    { name: '橙', hex: '#FF9800', sym: 'F' },
-    { name: '黄', hex: '#FFEB3B', sym: 'G' },
-    { name: '绿', hex: '#4CAF50', sym: 'H' },
-    { name: '蓝', hex: '#2196F3', sym: 'I' },
-    { name: '紫', hex: '#9C27B0', sym: 'J' },
-    { name: '棕', hex: '#795548', sym: 'K' },
-    { name: '肤', hex: '#FFCCBC', sym: 'L' },
-    { name: '深红', hex: '#C62828', sym: 'M' },
-    { name: '深蓝', hex: '#1565C0', sym: 'N' },
-    { name: '深绿', hex: '#2E7D32', sym: 'O' },
-    { name: '浅蓝', hex: '#64B5F6', sym: 'P' },
-    { name: '浅绿', hex: '#A5D6A7', sym: 'Q' },
-    { name: '浅粉', hex: '#F8BBD0', sym: 'R' },
-    { name: '浅黄', hex: '#FFF9C4', sym: 'S' },
-    { name: '浅紫', hex: '#E1BEE7', sym: 'T' },
-    { name: '深紫', hex: '#6A1B9A', sym: 'U' },
-    { name: '桃红', hex: '#FF4081', sym: 'V' },
-    { name: '青', hex: '#00BCD4', sym: 'W' },
-    { name: '金色', hex: '#FFD54F', sym: 'X' },
+    {name:'白',hex:'#FFFFFF',sym:'A'},{name:'黑',hex:'#1A1A1A',sym:'B'},{name:'灰',hex:'#9E9E9E',sym:'C'},
+    {name:'红',hex:'#E53935',sym:'D'},{name:'粉',hex:'#F48FB1',sym:'E'},{name:'橙',hex:'#FF9800',sym:'F'},
+    {name:'黄',hex:'#FFEB3B',sym:'G'},{name:'绿',hex:'#4CAF50',sym:'H'},{name:'蓝',hex:'#2196F3',sym:'I'},
+    {name:'紫',hex:'#9C27B0',sym:'J'},{name:'棕',hex:'#795548',sym:'K'},{name:'肤',hex:'#FFCCBC',sym:'L'},
+    {name:'深红',hex:'#C62828',sym:'M'},{name:'深蓝',hex:'#1565C0',sym:'N'},{name:'深绿',hex:'#2E7D32',sym:'O'},
+    {name:'浅蓝',hex:'#64B5F6',sym:'P'},{name:'浅绿',hex:'#A5D6A7',sym:'Q'},{name:'浅粉',hex:'#F8BBD0',sym:'R'},
+    {name:'浅黄',hex:'#FFF9C4',sym:'S'},{name:'浅紫',hex:'#E1BEE7',sym:'T'},{name:'深紫',hex:'#6A1B9A',sym:'U'},
+    {name:'桃红',hex:'#FF4081',sym:'V'},{name:'青',hex:'#00BCD4',sym:'W'},{name:'金色',hex:'#FFD54F',sym:'X'},
   ]
 };
 
-// ═══════════════════════════════════════════════
-// 颜色距离计算
-// ═══════════════════════════════════════════════
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1,3), 16);
-  const g = parseInt(hex.slice(3,5), 16);
-  const b = parseInt(hex.slice(5,7), 16);
-  return [r, g, b];
+// ═══════════════ Helpers ═══════════════
+const h2r = h => [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const r2h = (r,g,b) => '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
+const clamp = (v,lo,hi) => Math.max(lo,Math.min(hi,v));
+function colorDist(c1,c2){
+  const [r1,g1,b1]=h2r(c1),[r2,g2,b2]=h2r(c2);
+  const rm=(r1+r2)/2,dr=r1-r2,dg=g1-g2,db=b1-b2;
+  return Math.sqrt((2+rm/256)*dr*dr+4*dg*dg+(2+(255-rm)/256)*db*db);
 }
 
-function colorDistance(c1, c2) {
-  const [r1,g1,b1] = hexToRgb(c1);
-  const [r2,g2,b2] = hexToRgb(c2);
-  const rMean = (r1 + r2) / 2;
-  const dr = r1 - r2, dg = g1 - g2, db = b1 - b2;
-  return Math.sqrt((2+rMean/256)*dr*dr + 4*dg*dg + (2+(255-rMean)/256)*db*db);
+// ═══════════════ State ═══════════════
+let beadData=null, imgLoaded=null;
+
+// ═══════════════ Upload ═══════════════
+const uz=document.getElementById('uploadZone'),fi=document.getElementById('fileInput');
+uz.addEventListener('click',()=>fi.click());
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.style.borderColor='#ff6348'});
+uz.addEventListener('dragleave',()=>uz.style.borderColor='#ffa502');
+uz.addEventListener('drop',e=>{e.preventDefault();uz.style.borderColor='#ffa502';const f=e.dataTransfer.files[0];if(f)loadImg(f)});
+fi.addEventListener('change',e=>{const f=e.target.files[0];if(f)loadImg(f)});
+function loadImg(f){
+  const r=new FileReader();
+  r.onload=e=>{const img=new Image();img.onload=()=>{imgLoaded=img;doConvert()};img.src=e.target.result};
+  r.readAsDataURL(f);
+  uz.querySelector('.icon').textContent='✅';uz.querySelector('h3').textContent='已加载: '+f.name;
 }
 
-function findClosestColor(hex, palette) {
-  let best = palette[0], bestDist = Infinity;
-  for (const c of palette) {
-    const d = colorDistance(hex, c.hex);
-    if (d < bestDist) { bestDist = d; best = c; }
-  }
-  return best;
+// ═══════════════ Grid dimensions ═══════════════
+function getDims(s){
+  const m=s.match(/(\d+)x(\d+)/);
+  if(m)return{w:+m[1],h:+m[2]};
+  const v=parseInt(s);return{w:v,h:v};
 }
 
-// ═══════════════════════════════════════════════
-// State
-// ═══════════════════════════════════════════════
-let beadData = null;  // 2D array of {colorObj}
-let imageLoaded = null;
+// ═══════════════ Image preprocessing ═══════════════
+function preprocessImage(srcCanvas, gw, gh){
+  const sharpen = parseFloat(document.getElementById('sharpen').value);
+  const contrast = parseFloat(document.getElementById('contrast').value);
+  const brightness = parseFloat(document.getElementById('brightness').value);
+  const saturation = parseFloat(document.getElementById('saturation').value);
 
-// ═══════════════════════════════════════════════
-// Upload
-// ═══════════════════════════════════════════════
-const uploadZone = document.getElementById('uploadZone');
-const fileInput = document.getElementById('fileInput');
+  const c = document.createElement('canvas');
+  c.width=gw;c.height=gh;
+  const ctx=c.getContext('2d');
+  ctx.imageSmoothingEnabled=true;
+  ctx.drawImage(srcCanvas,0,0,gw,gh);
+  let px = ctx.getImageData(0,0,gw,gh);
+  let d = px.data;
 
-uploadZone.addEventListener('click', () => fileInput.click());
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.style.borderColor = '#ff6348'; });
-uploadZone.addEventListener('dragleave', () => { uploadZone.style.borderColor = '#ffa502'; });
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadZone.style.borderColor = '#ffa502';
-  const file = e.dataTransfer.files[0];
-  if (file) loadImage(file);
-});
-fileInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (file) loadImage(file);
-});
-
-function loadImage(file) {
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = new Image();
-    img.onload = () => { imageLoaded = img; doConvert(); };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-  uploadZone.querySelector('.icon').textContent = '✅';
-  uploadZone.querySelector('h3').textContent = '图片已加载：' + file.name;
-}
-
-// ═══════════════════════════════════════════════
-// Convert
-// ═══════════════════════════════════════════════
-function getGridDims(sizeStr) {
-  if (sizeStr === '29x58') return { w: 29, h: 58 };
-  const s = parseInt(sizeStr);
-  return { w: s, h: s };
-}
-
-function doConvert() {
-  if (!imageLoaded) return alert('请先上传图片！');
-
-  const gridSize = document.getElementById('gridSize').value;
-  const paletteKey = document.getElementById('palette').value;
-  const palette = PALETTES[paletteKey];
-  const { w: gw, h: gh } = getGridDims(gridSize);
-
-  // Draw original preview
-  const oCanvas = document.getElementById('originalCanvas');
-  const oCtx = oCanvas.getContext('2d');
-  const previewW = Math.min(400, gw * 15);
-  const scale = previewW / gw;
-  const previewH = gh * scale;
-  oCanvas.width = previewW;
-  oCanvas.height = previewH;
-  oCtx.imageSmoothingEnabled = false;
-  oCtx.drawImage(imageLoaded, 0, 0, gw, gh);
-
-  // Draw bead preview
-  const bCanvas = document.getElementById('beadCanvas');
-  const bCtx = bCanvas.getContext('2d');
-  bCanvas.width = gw;
-  bCanvas.height = gh;
-
-  // Map colors
-  beadData = [];
-  const tmpCanvas = document.createElement('canvas');
-  tmpCanvas.width = gw;
-  tmpCanvas.height = gh;
-  const tmpCtx = tmpCanvas.getContext('2d');
-  tmpCtx.imageSmoothingEnabled = true;
-  tmpCtx.drawImage(imageLoaded, 0, 0, gw, gh);
-  const imageData = tmpCtx.getImageData(0, 0, gw, gh);
-
-  const colorCount = {};
-
-  for (let y = 0; y < gh; y++) {
-    beadData[y] = [];
-    for (let x = 0; x < gw; x++) {
-      const idx = (y * gw + x) * 4;
-      const r = imageData.data[idx];
-      const g = imageData.data[idx + 1];
-      const b = imageData.data[idx + 2];
-      const a = imageData.data[idx + 3];
-      const hex = '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
-      const closest = findClosestColor(hex, palette);
-      beadData[y][x] = closest;
-
-      // Count
-      const key = closest.name;
-      colorCount[key] = (colorCount[key] || 0) + 1;
-
-      // Draw pixel
-      bCtx.fillStyle = closest.hex;
-      bCtx.fillRect(x, y, 1, 1);
+  // Sharpen: unsharp mask via downsample-upsample difference
+  if(sharpen > 0.01){
+    const blur=document.createElement('canvas');blur.width=gw;blur.height=gh;
+    const bCtx=blur.getContext('2d');
+    // slight blur via scaled draw
+    const bs=Math.max(1,Math.floor(gw*0.6));
+    bCtx.imageSmoothingEnabled=true;
+    bCtx.drawImage(c,0,0,bs,bs); // downsample
+    bCtx.drawImage(blur,0,0,gw,gh); // upsample (blurry)
+    const blurPx=bCtx.getImageData(0,0,gw,gh);
+    for(let i=0;i<d.length;i+=4){
+      for(let ch=0;ch<3;ch++){
+        const orig=d[i+ch], blurry=blurPx.data[i+ch];
+        d[i+ch]=clamp(orig+sharpen*(orig-blurry),0,255);
+      }
     }
   }
 
-  // Scale bead preview canvas for display
-  bCanvas.style.width = previewW + 'px';
-  bCanvas.style.height = previewH + 'px';
-  oCanvas.style.width = previewW + 'px';
-  oCanvas.style.height = previewH + 'px';
+  // Contrast + Brightness + Saturation
+  for(let i=0;i<d.length;i+=4){
+    let r=d[i],g=d[i+1],b=d[i+2];
+    // Brightness
+    r*=brightness;g*=brightness;b*=brightness;
+    // Contrast (around 128)
+    r=(r-128)*contrast+128;g=(g-128)*contrast+128;b=(b-128)*contrast+128;
+    // Saturation
+    const lum=0.299*r+0.587*g+0.114*b;
+    r=lum+saturation*(r-lum);g=lum+saturation*(g-lum);b=lum+saturation*(b-lum);
+    d[i]=clamp(r,0,255);d[i+1]=clamp(g,0,255);d[i+2]=clamp(b,0,255);
+  }
+  ctx.putImageData(px,0,0);
+  return {canvas:c, pixels:d, w:gw, h:gh};
+}
 
-  // Show sections
+// ═══════════════ Floyd-Steinberg dither ═══════════════
+function applyFloydSteinberg(pixels, w, h, palette){
+  const err=new Float32Array(w*h*3);
+  const quant=new Float32Array(w*h*3);
+  // copy
+  for(let i=0;i<pixels.length;i++) quant[i]=pixels[i];
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const idx=(y*w+x)*4;
+      let r=quant[idx]+err[idx], g=quant[idx+1]+err[idx+1], b=quant[idx+2]+err[idx+2];
+      r=clamp(r,0,255);g=clamp(g,0,255);b=clamp(b,0,255);
+      const actualHex=r2h(r,g,b);
+      const nearest=findClosest(actualHex,palette);
+      const [tr,tg,tb]=h2r(nearest.hex);
+      const re=r-tr,ge=g-tg,be=b-tb;
+      // distribute error
+      const dErr=(i,j,factor)=>{
+        if(i>=0&&i<w&&j>=0&&j<h){
+          const eidx=(j*w+i)*3;
+          err[eidx]+=re*factor;err[eidx+1]+=ge*factor;err[eidx+2]+=be*factor;
+        }
+      };
+      dErr(x+1,y,7/16);dErr(x-1,y+1,3/16);dErr(x,y+1,5/16);dErr(x+1,y+1,1/16);
+    }
+  }
+}
+
+function applyOrderedDither(pixels, w, h, palette){
+  const bayer=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const idx=(y*w+x)*4;
+      let r=pixels[idx],g=pixels[idx+1],b=pixels[idx+2];
+      const thresh=(bayer[y%4][x%4]/16-0.5)*48;
+      r=clamp(r+thresh,0,255);g=clamp(g+thresh,0,255);b=clamp(b+thresh,0,255);
+      pixels[idx]=r;pixels[idx+1]=g;pixels[idx+2]=b;
+    }
+  }
+}
+
+// ═══════════════ Color matching ═══════════════
+function findClosest(hex, palette){
+  let best=palette[0],bd=Infinity;
+  for(const c of palette){const d=colorDist(hex,c.hex);if(d<bd){bd=d;best=c}}
+  return best;
+}
+
+function limitPalette(palette, maxN){
+  if(maxN<=0||maxN>=palette.length)return palette;
+  // Pick most distinct colors using simple greedy
+  const selected=[palette[0]];
+  const remaining=palette.slice(1);
+  while(selected.length<maxN&&remaining.length>0){
+    // Find the color farthest from all selected
+    let bestIdx=0,bestDist=-1;
+    for(let i=0;i<remaining.length;i++){
+      let minDist=Infinity;
+      for(const s of selected){const d=colorDist(remaining[i].hex,s.hex);if(d<minDist)minDist=d}
+      if(minDist>bestDist){bestDist=minDist;bestIdx=i}
+    }
+    selected.push(remaining[bestIdx]);
+    remaining.splice(bestIdx,1);
+  }
+  return selected;
+}
+
+// ═══════════════ ═══════════════ Do convert ═══════════════
+function doConvert(){
+  if(!imgLoaded)return alert('请先上传图片！');
+
+  const gridSize=document.getElementById('gridSize').value;
+  const paletteKey=document.getElementById('palette').value;
+  const ditherMode=document.getElementById('ditherMode').value;
+  const maxColors=parseInt(document.getElementById('maxColors').value);
+  const previewScale=parseInt(document.getElementById('previewScale').value);
+  let palette=PALETTES[paletteKey];
+  const {w:gw,h:gh}=getDims(gridSize);
+
+  if(maxColors>0)palette=limitPalette(palette,maxColors);
+
+  // ── Step 1: Draw image at target resolution ──
+  const srcCanvas=document.createElement('canvas');
+  srcCanvas.width=gw;srcCanvas.height=gh;
+  const sCtx=srcCanvas.getContext('2d');
+  sCtx.imageSmoothingEnabled=true;
+  // Crop to square-ish aspect
+  const imgAspect=imgLoaded.width/imgLoaded.height;
+  const gridAspect=gw/gh;
+  let sx=0,sy=0,sw=imgLoaded.width,sh=imgLoaded.height;
+  if(imgAspect>gridAspect){sw=sh*gridAspect;sx=(imgLoaded.width-sw)/2}
+  else{sh=sw/gridAspect;sy=(imgLoaded.height-sh)/2}
+  sCtx.drawImage(imgLoaded,sx,sy,sw,sh,0,0,gw,gh);
+
+  // ── Step 2: Preprocess (sharpen/contrast etc) ──
+  const pre = preprocessImage(srcCanvas, gw, gh);
+
+  // ── Step 3: Dither ──
+  if(ditherMode==='floyd'){
+    applyFloydSteinberg(pre.pixels, gw, gh, palette);
+  }else if(ditherMode==='ordered'){
+    applyOrderedDither(pre.pixels, gw, gh, palette);
+  }
+
+  // ── Step 4: Map to bead colors ──
+  beadData=[];
+  const bCanvas=document.getElementById('beadCanvas');
+  bCanvas.width=gw;bCanvas.height=gh;
+  const bCtx=bCanvas.getContext('2d');
+  bCtx.imageSmoothingEnabled=false;
+  const colorCount={};
+
+  for(let y=0;y<gh;y++){
+    beadData[y]=[];
+    for(let x=0;x<gw;x++){
+      const idx=(y*gw+x)*4;
+      const r=pre.pixels[idx],g=pre.pixels[idx+1],b=pre.pixels[idx+2];
+      const hex=r2h(r,g,b);
+      const closest=findClosest(hex,palette);
+      beadData[y][x]=closest;
+      const key=closest.name;colorCount[key]=(colorCount[key]||0)+1;
+      bCtx.fillStyle=closest.hex;bCtx.fillRect(x,y,1,1);
+    }
+  }
+
+  // ── Step 5: Preview renders (large pixel art) ──
+  const oCanvas=document.getElementById('originalCanvas');
+  const oCtx=oCanvas.getContext('2d');
+  oCanvas.width=gw*previewScale;oCanvas.height=gh*previewScale;
+  oCtx.imageSmoothingEnabled=false;
+  oCtx.drawImage(pre.canvas,0,0,gw*previewScale,gh*previewScale);
+
+  const scaledW=gw*previewScale, scaledH=gh*previewScale;
+  bCanvas.style.width=scaledW+'px';bCanvas.style.height=scaledH+'px';
+  oCanvas.style.width=scaledW+'px';oCanvas.style.height=scaledH+'px';
+
+  // ── Show sections ──
   document.getElementById('previewSection').classList.remove('hidden');
   document.getElementById('legendSection').classList.remove('hidden');
   document.getElementById('gridSection').classList.remove('hidden');
   document.getElementById('beadSummary').classList.remove('hidden');
+  document.getElementById('downloadGrid').disabled=false;
+  document.getElementById('downloadPreview').disabled=false;
 
-  // Bead total
-  const total = Object.values(colorCount).reduce((a,b) => a + b, 0);
-  document.getElementById('beadTotal').textContent = total + ' 颗';
+  const total=Object.values(colorCount).reduce((a,b)=>a+b,0);
+  const colorNames=Object.keys(colorCount);
+  document.getElementById('beadTotal').textContent=total+' 颗';
+  document.getElementById('beadColorCount').textContent='使用了 '+colorNames.length+' 种颜色';
 
   // Legend
-  const usedColors = [...new Set(beadData.flatMap(r => r.map(c => c.name)))];
-  const sortedColors = palette.filter(c => usedColors.includes(c.name));
-  const legendGrid = document.getElementById('legendGrid');
-  legendGrid.innerHTML = sortedColors.map(c => `
+  const usedNames=[...new Set(beadData.flatMap(r=>r.map(c=>c.name)))];
+  const sorted=palette.filter(c=>usedNames.includes(c.name));
+  document.getElementById('legendGrid').innerHTML=sorted.map(c=>`
     <div class="legend-item">
-      <div class="legend-swatch" style="background:${c.hex};"></div>
-      <span class="legend-symbol">${c.sym}</span>
-      <span>${c.name}</span>
-      <span style="color:#999;">×${colorCount[c.name]||0}</span>
-    </div>
-  `).join('');
+      <div class="legend-swatch" style="background:${c.hex}"></div>
+      <span class="legend-symbol">${c.sym}</span><span>${c.name}</span>
+      <span style="color:#999">×${colorCount[c.name]||0}</span>
+    </div>`).join('');
 
-  // Render grids
-  renderSymbolGrid(gw, gh);
-  renderColorGrid(gw, gh);
-  renderNumberGrid(gw, gh, palette);
-
-  document.getElementById('gridTitle').textContent = `📋 拼豆图纸 · ${gw}×${gh}`;
+  // Grids
+  renderSymbolGrid(gw,gh);
+  renderColorGrid(gw,gh);
+  renderNumberGrid(gw,gh);
+  document.getElementById('gridTitle').textContent='📋 拼豆图纸 · '+gw+'×'+gh;
 }
 
-// ═══════════════════════════════════════════════
-// Grid Renderers
-// ═══════════════════════════════════════════════
-function renderSymbolGrid(gw, gh) {
-  let html = '<div class="grid-table">';
-  for (let y = 0; y < gh; y++) {
-    html += '<div class="row">';
-    for (let x = 0; x < gw; x++) {
-      const c = beadData[y][x];
-      html += `<div class="cell" style="background:${adjustBrightness(c.hex,90)};color:${isDark(c.hex)?'#fff':'#333'};">${c.sym}</div>`;
-    }
-    html += '</div>';
-  }
-  html += '</div>';
-  document.getElementById('gridSymbol').innerHTML = html;
+// ═══════════════ Grid renderers ═══════════════
+function adjB(hex,pct){const[r,g,b]=h2r(hex);const m=v=>Math.min(255,Math.round(v*(100+pct)/100));return`rgb(${m(r)},${m(g)},${m(b)})`}
+function isDark(hex){const[r,g,b]=h2r(hex);return(r*0.299+g*0.587+b*0.114)<128}
+
+function renderSymbolGrid(gw,gh){
+  let h='<div class="grid-table">';
+  for(let y=0;y<gh;y++){h+='<div class="row">';for(let x=0;x<gw;x++){const c=beadData[y][x];h+=`<div class="cell" style="background:${adjB(c.hex,80)};color:${isDark(c.hex)?'#fff':'#333'}">${c.sym}</div>`}h+='</div>'}
+  h+='</div>';document.getElementById('gridSymbol').innerHTML=h;
+}
+function renderColorGrid(gw,gh){
+  let h='<div class="grid-table">';
+  for(let y=0;y<gh;y++){h+='<div class="row">';for(let x=0;x<gw;x++){h+=`<div class="cell" style="background:${beadData[y][x].hex}"></div>`}h+='</div>'}
+  h+='</div>';document.getElementById('gridColor').innerHTML=h;
+}
+function renderNumberGrid(gw,gh){
+  let h='<div class="grid-table">';
+  for(let y=0;y<gh;y++){h+='<div class="row">';for(let x=0;x<gw;x++){const c=beadData[y][x];const cd=c.code||c.sym;h+=`<div class="cell" style="font-size:8px;background:${adjB(c.hex,80)};color:${isDark(c.hex)?'#fff':'#333'}">${cd}</div>`}h+='</div>'}
+  h+='</div>';document.getElementById('gridNumber').innerHTML=h;
 }
 
-function renderColorGrid(gw, gh) {
-  let html = '<div class="grid-table">';
-  for (let y = 0; y < gh; y++) {
-    html += '<div class="row">';
-    for (let x = 0; x < gw; x++) {
-      const c = beadData[y][x];
-      html += `<div class="cell" style="background:${c.hex};"></div>`;
-    }
-    html += '</div>';
-  }
-  html += '</div>';
-  document.getElementById('gridColor').innerHTML = html;
-}
-
-function renderNumberGrid(gw, gh, palette) {
-  let html = '<div class="grid-table">';
-  for (let y = 0; y < gh; y++) {
-    html += '<div class="row">';
-    for (let x = 0; x < gw; x++) {
-      const c = beadData[y][x];
-      const code = c.code || c.sym;
-      html += `<div class="cell" style="font-size:9px;background:${adjustBrightness(c.hex,90)};color:${isDark(c.hex)?'#fff':'#333'};">${code}</div>`;
-    }
-    html += '</div>';
-  }
-  html += '</div>';
-  document.getElementById('gridNumber').innerHTML = html;
-}
-
-function adjustBrightness(hex, pct) {
-  const [r,g,b] = hexToRgb(hex);
-  const mix = (v) => Math.min(255, Math.round(v * (100 + pct) / 100));
-  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
-}
-
-function isDark(hex) {
-  const [r,g,b] = hexToRgb(hex);
-  return (r*0.299 + g*0.587 + b*0.114) < 128;
-}
-
-// ═══════════════════════════════════════════════
-// Tabs
-// ═══════════════════════════════════════════════
-document.getElementById('gridTabs').addEventListener('click', e => {
-  if (!e.target.classList.contains('tab-btn')) return;
-  const tab = e.target.dataset.tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  e.target.classList.add('active');
-  document.getElementById('tabSymbol').classList.add('hidden');
-  document.getElementById('tabColor').classList.add('hidden');
-  document.getElementById('tabNumber').classList.add('hidden');
-  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.remove('hidden');
+// ═══════════════ Tabs ═══════════════
+document.getElementById('gridTabs').addEventListener('click',e=>{
+  if(!e.target.classList.contains('tab-btn'))return;
+  const tab=e.target.dataset.tab;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');
+  ['Symbol','Color','Number'].forEach(t=>document.getElementById('tab'+t).classList.add('hidden'));
+  document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.remove('hidden');
 });
 
-// ═══════════════════════════════════════════════
-// Download
-// ═══════════════════════════════════════════════
-document.getElementById('downloadPreview').addEventListener('click', () => {
-  if (!beadData) return alert('请先上传图片并转换！');
-  const bCanvas = document.getElementById('beadCanvas');
-  const outCanvas = document.createElement('canvas');
-  const cellSize = 12;
-  outCanvas.width = bCanvas.width * cellSize;
-  outCanvas.height = bCanvas.height * cellSize;
-  const ctx = outCanvas.getContext('2d');
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(bCanvas, 0, 0, outCanvas.width, outCanvas.height);
-  const link = document.createElement('a');
-  link.download = '拼豆预览图_' + bCanvas.width + 'x' + bCanvas.height + '.png';
-  link.href = outCanvas.toDataURL('image/png');
-  link.click();
+// ═══════════════ Downloads ═══════════════
+document.getElementById('downloadPreview').addEventListener('click',()=>{
+  if(!beadData)return;
+  const bCanvas=document.getElementById('beadCanvas');
+  const out=document.createElement('canvas');const cs=14;out.width=bCanvas.width*cs;out.height=bCanvas.height*cs;
+  const ctx=out.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(bCanvas,0,0,out.width,out.height);
+  const a=document.createElement('a');a.download='拼豆预览_'+bCanvas.width+'x'+bCanvas.height+'.png';a.href=out.toDataURL('image/png');a.click();
+});
+document.getElementById('downloadGrid').addEventListener('click',()=>{
+  if(!beadData)return;
+  const gh=beadData.length,gw=beadData[0].length,cs=22,pad=16,lh=100;
+  const out=document.createElement('canvas');
+  out.width=gw*cs+pad*2;out.height=gh*cs+pad*2+lh;
+  const ctx=out.getContext('2d');
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,out.width,out.height);
+  for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){const c=beadData[y][x];ctx.fillStyle=c.hex;ctx.fillRect(pad+x*cs,pad+y*cs,cs-1,cs-1);ctx.fillStyle=isDark(c.hex)?'#fff':'#000';ctx.font='bold 9px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c.sym,pad+x*cs+cs/2,pad+y*cs+cs/2)}
+  const used=[...new Set(beadData.flatMap(r=>r.map(c=>c.name)))];
+  let lx=pad,ly=pad+gh*cs+14;
+  for(const name of used){const color=PALETTES[document.getElementById('palette').value].find(p=>p.name===name);if(!color)continue;ctx.fillStyle=color.hex;ctx.fillRect(lx,ly,14,14);ctx.fillStyle='#000';ctx.font='9px sans-serif';ctx.textAlign='left';ctx.fillText(color.sym+' '+color.name,lx+18,ly+11);lx+=ctx.measureText(color.sym+' '+color.name).width+26;if(lx>out.width-100){lx=pad;ly+=18}}
+  const a=document.createElement('a');a.download='拼豆图纸_'+gw+'x'+gh+'.png';a.href=out.toDataURL('image/png');a.click();
 });
 
-document.getElementById('downloadGrid').addEventListener('click', () => {
-  if (!beadData) return alert('请先上传图片并转换！');
+// ═══════════════ Events ═══════════════
+document.getElementById('convertBtn').addEventListener('click',doConvert);
 
-  const gh = beadData.length, gw = beadData[0].length;
-  const cellSize = 24, padding = 20;
-  const legendH = 120;
-  const outCanvas = document.createElement('canvas');
-  outCanvas.width = gw * cellSize + padding * 2;
-  outCanvas.height = gh * cellSize + padding * 2 + legendH;
-  const ctx = outCanvas.getContext('2d');
-
-  // White bg
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, outCanvas.width, outCanvas.height);
-
-  // Draw grid
-  for (let y = 0; y < gh; y++) {
-    for (let x = 0; x < gw; x++) {
-      ctx.fillStyle = beadData[y][x].hex;
-      ctx.fillRect(padding + x*cellSize, padding + y*cellSize, cellSize-1, cellSize-1);
-      ctx.fillStyle = isDark(beadData[y][x].hex) ? '#fff' : '#000';
-      ctx.font = 'bold 10px monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(beadData[y][x].sym, padding + x*cellSize + cellSize/2, padding + y*cellSize + cellSize/2);
-    }
-  }
-
-  // Legend
-  const usedNames = [...new Set(beadData.flatMap(r => r.map(c => c.name)))];
-  let lx = padding, ly = padding + gh*cellSize + 16;
-  for (const name of usedNames) {
-    const c = PALETTES[document.getElementById('palette').value].find(p => p.name === name);
-    if (!c) continue;
-    ctx.fillStyle = c.hex;
-    ctx.fillRect(lx, ly, 14, 14);
-    ctx.fillStyle = '#000';
-    ctx.font = '10px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(c.sym + ' ' + c.name, lx + 18, ly + 11);
-    lx += ctx.measureText(c.sym + ' ' + c.name).width + 30;
-    if (lx > outCanvas.width - 100) { lx = padding; ly += 20; }
-  }
-
-  const link = document.createElement('a');
-  link.download = '拼豆图纸_' + gw + 'x' + gh + '.png';
-  link.href = outCanvas.toDataURL('image/png');
-  link.click();
+// Slider live feed
+['sharpen','contrast','brightness','saturation'].forEach(id=>{
+  const el=document.getElementById(id);
+  const valEl=document.getElementById(id+'Val');
+  el.addEventListener('input',()=>{valEl.textContent=el.value;if(imgLoaded)doConvert()});
 });
 
-// Convert button
-document.getElementById('convertBtn').addEventListener('click', doConvert);
+// Settings change auto-reconvert
+['gridSize','palette','ditherMode','maxColors','previewScale'].forEach(id=>{
+  document.getElementById(id).addEventListener('change',()=>{if(imgLoaded)doConvert()});
+});
 
-// Auto-convert on settings change
-document.getElementById('gridSize').addEventListener('change', () => { if (imageLoaded) doConvert(); });
-document.getElementById('palette').addEventListener('change', () => { if (imageLoaded) doConvert(); });
-
-console.log('🧩 拼豆转换器已就绪！');
+console.log('🧩 拼豆转换器 Pro 已就绪！');
 </script>
 </body>
 </html>
