@@ -471,7 +471,7 @@ function renderGrids(gw,gh){
   ch+='<div class="row"><div class="cell row-header" style="width:'+(cellPx+2)+'px"></div>';
   for(let x=0;x<gw;x++)ch+=`<div class="cell col-header" style="width:${cellPx}px">${x+1}</div>`;ch+='</div>';
   for(let y=0;y<gh;y++){ch+='<div class="row">';ch+=`<div class="cell row-header" style="width:${cellPx+2}px">${y+1}</div>`;
-    for(let x=0;x<gw;x++)ch+=`<div class="cell" style="${style};background:${beadData[y][x].hex}"></div>`}ch+='</div>';}
+    for(let x=0;x<gw;x++)ch+=`<div class="cell" style="${style};background:${beadData[y][x].hex}"></div>`;ch+='</div>';}
   ch+='</div>';document.getElementById('gridColor').innerHTML=ch;
 
   // ── Number grid ──
